@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mazmorras</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Georgia', serif;
+    background:#1e1b16;
+    color:#f5e6c8;
+    text-align:center;
+}
+
+/* BOTÓN MENU */
+.menu-toggle{
+    position:fixed;
+    top:20px;
+    left:20px;
+    font-size:28px;
+    cursor:pointer;
+    z-index:1001;
+    color:gold;
+}
+
+/* BARRA LATERAL */
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-320px;
+    width:300px;
+    height:100%;
+    background:#14110d;
+    border-right:3px solid gold;
+    padding-top:80px;
+    transition:0.4s;
+    z-index:1000;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.sidebar button{
+    display:block;
+    width:85%;
+    margin:15px auto;
+    padding:12px;
+    font-size:18px;
+    background:linear-gradient(45deg,gold,darkgoldenrod);
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    color:#2b1c0f;
+}
+
+h1{
+    margin-top:120px;
+    font-size:45px;
+    color:gold;
+    text-shadow:0 0 10px gold;
+}
+
+/* CONTENEDOR */
+.contenedor-mazmorras{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:30px;
+    margin-top:40px;
+}
+
+/* TARJETAS */
+.mazmorra{
+    position:relative;
+    width:250px;
+    height:220px;
+    border:3px solid gold;
+    border-radius:20px;
+    overflow:hidden;
+    cursor:pointer;
+    background:#2b241c;
+    transition:0.3s;
+}
+
+.mazmorra:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px gold;
+}
+
+.mazmorra img{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+    image-rendering: pixelated;
+}
+
+.nivel{
+    background:#14110d;
+    padding:10px;
+    font-weight:bold;
+    color:gold;
+}
+
+/* BLOQUEADO */
+.bloqueado{
+    filter:grayscale(100%) brightness(40%);
+    cursor:not-allowed;
+}
+
+.candado{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    font-size:50px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<div class="sidebar" id="sidebar">
+    <button onclick="window.location.href='inicio2.html'">Inicio</button>
+    <button onclick="window.location.href='equipar.html'">Equipar</button>
+    <button onclick="window.location.href='clasificacion.html'">Clasificación</button>
+    <button onclick="window.location.href='tienda-mascotas.html'">Tienda</button>
+    <button onclick="window.location.href='creditos.html'">Créditos</button>
+</div>
+
+<h1>⚔ Mazmorras ⚔</h1>
+
+<div class="contenedor-mazmorras">
+
+    <div class="mazmorra" onclick="entrarMazmorra(1)">
+        <img src="bosque.png">
+        <div class="nivel">Bosque Oscuro - Nivel 1</div>
+    </div>
+
+    <div class="mazmorra" id="nivel2" onclick="entrarMazmorra(2)">
+        <img src="cueva.png">
+        <div class="nivel">Cueva Profunda - Nivel 2</div>
+        <div class="candado">🔒</div>
+    </div>
+
+    <div class="mazmorra" id="nivel3" onclick="entrarMazmorra(3)">
+        <img src="ruinas.png">
+        <div class="nivel">Ruinas Antiguas - Nivel 3</div>
+        <div class="candado">🔒</div>
+    </div>
+
+    <div class="mazmorra" id="nivel4" onclick="entrarMazmorra(4)">
+        <img src="torre.png">
+        <div class="nivel">Torre Maldita - Nivel 4</div>
+        <div class="candado">🔒</div>
+    </div>
+
+    <div class="mazmorra" id="nivel5" onclick="entrarMazmorra(5)">
+        <img src="dragon.png">
+        <div class="nivel">Dragón Oscuro - Nivel 5</div>
+        <div class="candado">🔒</div>
+    </div>
+
+</div>
+
+<script>
+
+function toggleMenu(){
+    document.getElementById("sidebar").classList.toggle("active");
+}
+
+/* NIVEL DESBLOQUEADO */
+let nivelDesbloqueado = parseInt(localStorage.getItem("nivelDesbloqueado")) || 1;
+
+/* Aplicar bloqueos visuales */
+for(let i=2; i<=5; i++){
+
+    let nivel = document.getElementById("nivel"+i);
+
+    if(i > nivelDesbloqueado){
+        nivel.classList.add("bloqueado");
+    }else{
+        let candado = document.querySelector("#nivel"+i+" .candado");
+        if(candado) candado.style.display = "none";
+    }
+}
+
+function entrarMazmorra(nivel){
+
+    if(nivel > nivelDesbloqueado){
+        alert("Esta mazmorra está bloqueada 🔒");
+        return;
+    }
+
+    if(nivel === 1){
+        window.location.href = "mazmorra1.html";
+        return;
+    }
+
+    alert("Mazmorra aún no implementada.");
+}
+
+</script>
+
+</body>
+</html>

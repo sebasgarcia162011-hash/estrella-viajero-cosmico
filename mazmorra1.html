@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mazmorra 1</title>
+<script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    overflow:hidden;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+
+const config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    pixelArt: true,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 0 },
+            debug: false
+        }
+    },
+    scene: { preload, create, update }
+};
+
+let player, enemy;
+let cursors, attackKey;
+let chests;
+let gold = 0;
+let goldText;
+let walls;
+let life = 100;
+let enemyLife = 50;
+let lifeBar;
+let enemyLifeBar;
+let canTakeDamage = true;
+let canAttack = true;
+
+let moveLeft=false, moveRight=false, moveUp=false, moveDown=false;
+
+const game = new Phaser.Game(config);
+
+function preload(){
+    this.load.image('player','https://labs.phaser.io/assets/sprites/phaser-dude.png');
+    this.load.image('enemy','https://labs.phaser.io/assets/sprites/robot.png');
+}
+
+function create(){
+
+    const tileSize = 64;
+    const mapWidth = 25;
+    const mapHeight = 18;
+
+    walls = this.physics.add.staticGroup();
+
+    for(let x=0; x<mapWidth; x++){
+        for(let y=0; y<mapHeight; y++){
+
+            this.add.rectangle(x*tileSize,y*tileSize,tileSize,tileSize,0x1e1e1e).setOrigin(0);
+
+            if(x===0 || y===0 || x===mapWidth-1 || y===mapHeight-1){
+                let wall = this.add.rectangle(x*tileSize,y*tileSize,tileSize,tileSize,0x444444).setOrigin(0);
+                walls.add(wall);
+            }
+
+            if(Math.random() < 0.06){
+                let wall = this.add.rectangle(x*tileSize,y*tileSize,tileSize,tileSize,0x333333).setOrigin(0);
+                walls.add(wall);
+            }
+        }
+    }
+
+    player = this.physics.add.sprite(200,200,'player');
+    player.setCollideWorldBounds(true);
+    this.physics.add.collider(player, walls);
+
+    spawnEnemy(this);
+
+    this.physics.add.overlap(player, enemy, damagePlayer, null, this);
+
+    this.cameras.main.startFollow(player);
+    this.cameras.main.setBounds(0,0,mapWidth*tileSize,mapHeight*tileSize);
+
+    cursors = this.input.keyboard.createCursorKeys();
+    attackKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+    createMobileControls(this);
+    createLifeBar(this);
+
+    createChests(this);
+    createGoldUI(this);
+}
+
+function update(){
+
+    const speed = 250;
+    player.setVelocity(0);
+
+    if(cursors.left.isDown || moveLeft) player.setVelocityX(-speed);
+    if(cursors.right.isDown || moveRight) player.setVelocityX(speed);
+    if(cursors.up.isDown || moveUp) player.setVelocityY(-speed);
+    if(cursors.down.isDown || moveDown) player.setVelocityY(speed);
+
+    if(Phaser.Input.Keyboard.JustDown(attackKey)){
+        attack();
+    }
+
+    if(enemy){
+        const distancia = Phaser.Math.Distance.Between(
+            player.x, player.y,
+            enemy.x, enemy.y
+        );
+
+        if(distancia < 350){
+            this.physics.moveToObject(enemy, player, 120);
+        }else{
+            enemy.setVelocity(0);
+        }
+    }
+}
+
+function attack(){
+
+    if(!canAttack) return;
+
+    canAttack = false;
+
+if(!enemy) return;
+
+let distancia = Phaser.Math.Distance.Between(
+    player.x, player.y,
+    enemy.x, enemy.y
+);
+
+    if(distancia < 100){
+        enemyLife -= 20;
+        enemy.setTint(0xff0000);
+
+        setTimeout(()=>enemy.clearTint(),200);
+
+        if(enemyLife <= 0){
+            enemy.destroy();
+            setTimeout(()=>spawnEnemy(game.scene.scenes[0]),2000);
+        }
+    }
+
+    setTimeout(()=>{
+        canAttack = true;
+    }, 400);
+}
+function spawnEnemy(scene){
+
+    enemyLife = 50;
+
+    enemy = scene.physics.add.sprite(900,600,'enemy');
+    enemy.setCollideWorldBounds(true);
+    scene.physics.add.collider(enemy, walls);
+    scene.physics.add.overlap(player, enemy, damagePlayer, null, scene);
+
+    // Crear barra de vida del enemigo
+    enemyLifeBar = scene.add.graphics();
+}
+
+
+function damagePlayer(){
+
+    if(!canTakeDamage) return;
+
+    life -= 10;
+    updateLifeBar();
+
+    canTakeDamage = false;
+
+    setTimeout(()=>canTakeDamage = true,1000);
+
+    if(life <= 0){
+        alert("💀 GAME OVER 💀");
+        location.reload();
+    }
+}
+
+function createLifeBar(scene){
+    lifeBar = scene.add.graphics();
+    lifeBar.setScrollFactor(0);
+    updateLifeBar();
+}
+
+function updateLifeBar(){
+    lifeBar.clear();
+    lifeBar.fillStyle(0x000000);
+    lifeBar.fillRect(20,20,204,24);
+
+    lifeBar.fillStyle(0xff0000);
+    lifeBar.fillRect(22,22,2 * life,20);
+}
+
+function createMobileControls(scene){
+
+    let size = 50;
+
+    let left = scene.add.circle(80, scene.scale.height-100, size, 0x000000, 0.4).setScrollFactor(0).setInteractive();
+    let right = scene.add.circle(200, scene.scale.height-100, size, 0x000000, 0.4).setScrollFactor(0).setInteractive();
+    let up = scene.add.circle(140, scene.scale.height-160, size, 0x000000, 0.4).setScrollFactor(0).setInteractive();
+    let down = scene.add.circle(140, scene.scale.height-40, size, 0x000000, 0.4).setScrollFactor(0).setInteractive();
+
+    let attackBtn = scene.add.circle(scene.scale.width-80, scene.scale.height-100, 60, 0xaa0000, 0.6)
+        .setScrollFactor(0)
+        .setInteractive();
+
+    attackBtn.on('pointerdown', attack);
+
+    left.on('pointerdown',()=>moveLeft=true);
+    left.on('pointerup',()=>moveLeft=false);
+
+    right.on('pointerdown',()=>moveRight=true);
+    right.on('pointerup',()=>moveRight=false);
+
+    up.on('pointerdown',()=>moveUp=true);
+    up.on('pointerup',()=>moveUp=false);
+
+    down.on('pointerdown',()=>moveDown=true);
+    down.on('pointerup',()=>moveDown=false);
+}
+function createChests(scene){
+
+    chests = scene.physics.add.staticGroup();
+
+    for(let i=0; i<6; i++){
+
+        let x = Phaser.Math.Between(200, 1400);
+        let y = Phaser.Math.Between(200, 1000);
+
+        let chest = scene.add.rectangle(x,y,40,40,0x8b4513);
+        scene.physics.add.existing(chest,true);
+
+        chest.isTrap = Math.random() < 0.4; // 40% trampa
+
+        chests.add(chest);
+    }
+
+    scene.physics.add.overlap(player, chests, openChest, null, scene);
+}
+
+function openChest(player, chest){
+
+    if(chest.opened) return;
+
+    chest.opened = true;
+
+    if(chest.isTrap){
+        life -= 20;
+        updateLifeBar();
+        chest.fillColor = 0xaa0000;
+    }else{
+        let amount = Phaser.Math.Between(10,30);
+        gold += amount;
+        updateGoldUI();
+        chest.fillColor = 0xffff00;
+    }
+
+    setTimeout(()=>{
+        chest.destroy();
+    },300);
+}
+
+function createGoldUI(scene){
+    goldText = scene.add.text(20,60,"Oro: 0",{
+        fontSize:"22px",
+        fill:"#ffd700"
+    });
+    goldText.setScrollFactor(0);
+}
+
+function updateGoldUI(){
+    goldText.setText("Oro: " + gold);
+}
+</script>
+</body>
+</html>

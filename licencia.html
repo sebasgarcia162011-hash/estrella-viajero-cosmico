@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Licencia Oficial</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Georgia', serif;
+    background:#1e1b16;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    color:white;
+}
+
+.tarjeta{
+    width:380px;
+    height:220px;
+    background:linear-gradient(135deg,#c9a44c,#8b6f47);
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 0 30px rgba(255,215,0,0.5);
+    position:relative;
+    color:#2b1c0f;
+    overflow:hidden;
+}
+
+/* SELLO DEL GREMIO */
+.sello-tarjeta{
+    position:absolute;
+    top:10px;
+    right:15px;
+    width:65px;
+    opacity:0.95;
+    filter:drop-shadow(0 0 6px gold);
+}
+
+.tarjeta h2{
+    margin:0;
+    text-align:center;
+    font-size:20px;
+}
+
+.info{
+    margin-top:15px;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.numero{
+    position:absolute;
+    bottom:15px;
+    right:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+button{
+    margin-top:30px;
+    padding:12px 30px;
+    font-size:16px;
+    background:gold;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 15px gold;
+}
+</style>
+</head>
+<body>
+
+<div>
+<div class="tarjeta">
+<h2>Licencia Oficial del Gremio</h2>
+
+<!-- SELLO AQUÍ -->
+<img src="sello.png" class="sello-tarjeta" alt="Sello del Gremio">
+
+<div class="info">
+<strong>Nombre:</strong> <span id="nombre"></span><br>
+<strong>Magia:</strong> <span id="magia"></span><br>
+<strong>Número de Aventurero:</strong> <span id="numero"></span><br>
+<strong>Rango:</strong> <span id="rango"></span><br>
+<strong>Rol:</strong> <span id="rol"></span><br>
+<strong>Título:</strong> <span id="titulo"></span>
+</div>
+
+<div class="numero" id="codigoUnico"></div>
+</div>
+
+<div style="text-align:center;">
+<button onclick="iniciarAventura()">Iniciar Aventura</button>
+</div>
+</div>
+
+<script>
+let nombre = localStorage.getItem("nombreJugador");
+let magia = localStorage.getItem("magiaJugador");
+let puntos = parseInt(localStorage.getItem("puntosJugador"));
+
+if(!nombre){
+    window.location.href="index.html";
+}
+
+let rango = "";
+if(puntos <= 30) rango="F";
+else if(puntos <= 50) rango="D";
+else if(puntos <= 65) rango="C";
+else if(puntos <= 75) rango="B";
+else if(puntos <= 85) rango="A";
+else if(puntos <= 95) rango="S";
+else rango="SS";
+
+let rol = "";
+if(magia==="Fuego" || magia==="Rayo") rol="Atacante";
+else if(magia==="Agua" || magia==="Luz") rol="Soporte";
+else if(magia==="Tierra" || magia==="Hielo") rol="Defensor";
+else rol="Especialista";
+
+let numeroAventurero = localStorage.getItem("numeroAventurero");
+
+if(!numeroAventurero){
+    numeroAventurero = "ADV-" + Math.floor(100000 + Math.random()*900000);
+    localStorage.setItem("numeroAventurero", numeroAventurero);
+}
+
+document.getElementById("nombre").textContent = nombre;
+document.getElementById("magia").textContent = magia;
+document.getElementById("numero").textContent = numeroAventurero;
+document.getElementById("rango").textContent = rango;
+document.getElementById("rol").textContent = rol;
+document.getElementById("titulo").textContent = "Aventurero del Gremio";
+document.getElementById("codigoUnico").textContent = numeroAventurero;
+
+localStorage.setItem("licenciaCreada", "si");
+
+function iniciarAventura(){
+    window.location.href="inicio2.html";
+}
+</script>
+
+</body>
+</html>

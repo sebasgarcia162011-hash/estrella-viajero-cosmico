@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examen de Ingreso - Gremio</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Georgia', serif;
+    background:#d6c29c;
+    background-image:
+        radial-gradient(circle at center, rgba(0,0,0,0.2), rgba(0,0,0,0.5)),
+        repeating-linear-gradient(
+            0deg,
+            rgba(0,0,0,0.03),
+            rgba(0,0,0,0.03) 2px,
+            transparent 2px,
+            transparent 4px
+        );
+    color:#3b2b15;
+}
+
+.contenedor{
+    max-width:900px;
+    margin:50px auto;
+    padding:40px;
+    background:rgba(255,255,255,0.3);
+    border:3px solid #8b6f47;
+    border-radius:25px;
+    text-align:center;
+}
+
+h1{
+    font-size:45px;
+}
+
+select{
+    padding:8px;
+    font-size:16px;
+    margin:10px;
+}
+
+button{
+    margin-top:30px;
+    padding:15px 40px;
+    font-size:18px;
+    background:linear-gradient(45deg,gold,darkgoldenrod);
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<div class="contenedor">
+<h1>⚔ Examen Oficial del Gremio ⚔</h1>
+
+<form id="formulario">
+
+<h2>📜 Registro del Aventurero</h2>
+
+<label>Nombre del Aventurero:</label><br>
+<input type="text" id="nombreJugador" required style="padding:8px; width:80%; margin-bottom:15px;"><br>
+
+<label>Tipo de Magia:</label><br>
+<select id="magiaJugador" required style="padding:8px; width:85%; margin-bottom:25px;">
+<option value="">Selecciona tu magia</option>
+<option value="Fuego">🔥 Fuego</option>
+<option value="Agua">💧 Agua</option>
+<option value="Viento">🌪 Viento</option>
+<option value="Tierra">🌱 Tierra</option>
+<option value="Luz">✨ Luz</option>
+<option value="Oscuridad">🌑 Oscuridad</option>
+<option value="Rayo">⚡ Rayo</option>
+<option value="Hielo">❄ Hielo</option>
+</select>
+
+<!-- 20 PREGUNTAS NARRATIVAS -->
+
+<h3>Un dragón oscuro aparece frente a ti.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Observo sus movimientos antes de atacar</option>
+<option value="2">Corro hacia él sin pensar</option>
+<option value="3">Protejo a los demás primero</option>
+<option value="1">Retrocedo lentamente</option>
+</select>
+
+<h3>Un cofre antiguo vibra con energía mágica.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Busco trampas ocultas</option>
+<option value="2">Lo abro de golpe</option>
+<option value="3">Uso magia para analizarlo</option>
+<option value="1">Lo ignoro</option>
+</select>
+
+<h3>Un goblin intenta engañarte.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Le sigo el juego para obtener información</option>
+<option value="2">Lo ataco</option>
+<option value="3">Lo interrogo</option>
+<option value="1">Me voy</option>
+</select>
+
+<h3>Tu equipo pierde el rumbo en la mazmorra.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Tomo liderazgo y organizo</option>
+<option value="3">Analizo el mapa</option>
+<option value="2">Improviso</option>
+<option value="1">Entro en pánico</option>
+</select>
+
+<h3>Un orco desafía tu honor.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="3">Acepto el duelo</option>
+<option value="4">Estudio su estilo primero</option>
+<option value="2">Ataco antes de que termine</option>
+<option value="1">Rechazo el combate</option>
+</select>
+
+<h3>Descubres un libro prohibido.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Lo leo con precaución</option>
+<option value="2">Uso el poder sin pensar</option>
+<option value="3">Lo guardo para estudiarlo después</option>
+<option value="1">Lo destruyo</option>
+</select>
+
+<h3>Una criatura desconocida te observa.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">La analizo</option>
+<option value="2">La ataco</option>
+<option value="3">La rodeo estratégicamente</option>
+<option value="1">Huyo</option>
+</select>
+
+<h3>Te ofrecen riquezas infinitas.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Pregunto el precio real</option>
+<option value="2">Acepto de inmediato</option>
+<option value="3">Investigo el origen</option>
+<option value="1">Me obsesiono</option>
+</select>
+
+<h3>Tu mascota resulta herida.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">La protejo y curo</option>
+<option value="3">Cambio estrategia</option>
+<option value="2">Sigo atacando</option>
+<option value="1">La abandono</option>
+</select>
+
+<h3>Encuentras una sala secreta.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">La inspecciono cuidadosamente</option>
+<option value="2">Entro corriendo</option>
+<option value="3">Lanzo un hechizo de exploración</option>
+<option value="1">La dejo atrás</option>
+</select>
+
+<h3>Un slime bloquea el paso.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="3">Uso magia elemental</option>
+<option value="2">Golpe directo</option>
+<option value="4">Busco su debilidad</option>
+<option value="1">Evito el combate</option>
+</select>
+
+<h3>Un compañero falla su hechizo.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Lo cubro y reorganizo</option>
+<option value="3">Lo animo</option>
+<option value="2">Lo critico</option>
+<option value="1">Lo ignoro</option>
+</select>
+
+<h3>Un espíritu oscuro intenta manipularte.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Resisto mentalmente</option>
+<option value="2">Acepto el poder</option>
+<option value="3">Finjo caer en su juego</option>
+<option value="1">Dudo</option>
+</select>
+
+<h3>Te pierdes en un laberinto.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Marco el camino</option>
+<option value="3">Busco pistas</option>
+<option value="2">Camino al azar</option>
+<option value="1">Me detengo</option>
+</select>
+
+<h3>Una aldea pide ayuda sin recompensa.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Ayudo sin dudar</option>
+<option value="3">Negocio condiciones</option>
+<option value="2">Pido pago</option>
+<option value="1">La ignoro</option>
+</select>
+
+<h3>Te ofrecen liderar el gremio.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Evalúo si soy digno</option>
+<option value="3">Acepto</option>
+<option value="2">Lo tomo por poder</option>
+<option value="1">Lo rechazo por miedo</option>
+</select>
+
+<h3>Un enemigo suplica piedad.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Lo interrogo</option>
+<option value="3">Lo perdono</option>
+<option value="2">Lo elimino</option>
+<option value="1">Lo ignoro</option>
+</select>
+
+<h3>Descubres un traidor.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Reúno pruebas</option>
+<option value="3">Lo observo</option>
+<option value="2">Lo enfrento</option>
+<option value="1">Lo ignoro</option>
+</select>
+
+<h3>Un portal misterioso se abre.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Analizo la energía</option>
+<option value="3">Lanzo un hechizo explorador</option>
+<option value="2">Entro sin pensar</option>
+<option value="1">Lo evito</option>
+</select>
+
+<h3>Frente a ti aparece el Dragón Oscuro final.</h3>
+<select class="respuesta" required>
+<option value="">Elige tu acción</option>
+<option value="4">Busco su debilidad</option>
+<option value="3">Coordino equipo y mascota</option>
+<option value="2">Cargo directo</option>
+<option value="1">Dudo</option>
+</select>
+
+<br>
+<button type="submit">Continuar</button>
+
+</form>
+</div>
+
+<script>
+document.getElementById("formulario").addEventListener("submit", function(e){
+e.preventDefault();
+
+let nombre = document.getElementById("nombreJugador").value;
+let magia = document.getElementById("magiaJugador").value;
+
+let respuestas = document.querySelectorAll(".respuesta");
+let puntos = 0;
+
+respuestas.forEach(r=>{
+puntos += parseInt(r.value);
+});
+
+localStorage.setItem("nombreJugador", nombre);
+localStorage.setItem("magiaJugador", magia);
+localStorage.setItem("puntosJugador", puntos);
+
+window.location.href = "licencia.html";
+});
+</script>
+
+<script>
+// Bloquear examen si ya tiene licencia
+if(localStorage.getItem("licenciaCreada") === "si"){
+    window.location.href = "inicio2.html";
+}
+</script>
+
+</body>
+</html>

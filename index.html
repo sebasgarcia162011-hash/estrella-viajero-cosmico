@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gremio Estrella Viajero Cósmico</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Georgia', serif;
+    background:#d6c29c;
+    background-image:
+        radial-gradient(circle at center, rgba(0,0,0,0.2), rgba(0,0,0,0.5)),
+        repeating-linear-gradient(
+            0deg,
+            rgba(0,0,0,0.03),
+            rgba(0,0,0,0.03) 2px,
+            transparent 2px,
+            transparent 4px
+        );
+    color:#3b2b15;
+    height:100vh;
+}
+
+.contenedor{
+    padding-top:120px;
+    text-align:center;
+}
+
+.titulo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+}
+
+.titulo h1{
+    font-size:90px;
+    margin:0;
+}
+
+.sello{
+    width:180px;
+    height:auto;
+}
+
+.nombre-gremio{
+    font-size:40px;
+    margin-top:40px;
+    letter-spacing:3px;
+    color:gold;
+    text-shadow:0 0 10px gold,
+                0 0 20px goldenrod,
+                0 0 30px orange;
+}
+
+/* ESTILO BURBUJA INFORMACIÓN */
+.info-burbuja{
+    max-width:900px;
+    margin:100px auto;
+    padding:50px;
+    background:rgba(255,255,255,0.3);
+    border:3px solid #8b6f47;
+    border-radius:25px;
+    backdrop-filter:blur(4px);
+    text-align:center;
+}
+
+.info-burbuja h2{
+    font-size:40px;
+    margin-bottom:30px;
+}
+
+.info-burbuja p{
+    font-size:20px;
+    line-height:1.8;
+    margin-bottom:20px;
+}
+
+/* BOTÓN EXAMEN */
+.boton-examen{
+    text-align:center;
+    margin:60px 0;
+}
+
+.boton-examen button{
+    padding:20px 50px;
+    font-size:22px;
+    font-family:'Georgia', serif;
+    background:linear-gradient(45deg, gold, darkgoldenrod);
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    color:#3b2b15;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.boton-examen button:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 20px gold;
+}
+</style>
+</head>
+<body>
+
+<div class="contenedor">
+
+    <div class="titulo">
+        <h1>Bienvenido</h1>
+        <img src="sello.png" class="sello" alt="Sello del Gremio">
+    </div>
+
+    <div class="nombre-gremio">
+        ⚜ Gremio Estrella Viajero Cósmico ⚜
+    </div>
+
+</div>
+
+<section class="info-burbuja">
+    <h2>📜 Información del Gremio</h2>
+
+    <p>
+        Bienvenido al gremio. Aquí comienza tu camino como aventurero.
+        Primero deberás realizar el Examen de Ingreso para obtener tu Licencia Oficial.
+    </p>
+
+    <p>
+        Según tus decisiones recibirás un rango (F hasta S) y tu ID único
+        quedará registrado en la Clasificación Mundial.
+    </p>
+
+    <p>
+        Podrás explorar mazmorras por niveles, derrotar enemigos como slimes,
+        goblins, orcos y bestias oscuras para conseguir materiales.
+    </p>
+
+    <p>
+        Los materiales pueden venderse por monedas en la tienda.
+        Con monedas podrás comprar mascotas, objetos y expandir tu inventario.
+    </p>
+
+    <p>
+        Las mascotas pueden ayudarte en combate como segundo ataque.
+        Algunas podrán mejorarse alimentándolas.
+    </p>
+
+    <p>
+        El jefe final es el Dragón Oscuro. 
+        Solo los aventureros más fuertes podrán derrotarlo.
+    </p>
+
+    <p>
+        Existen títulos especiales que podrás desbloquear completando logros.
+        ¿Serás capaz de convertirte en el Rey de los Títulos?
+    </p>
+</section>
+
+<div class="boton-examen">
+    <a href="examen.html">
+        <button>⚔ Realizar Examen de Ingreso ⚔</button>
+    </a>
+</div>
+
+<script>
+// Si ya existe una licencia creada, saltar directo al juego
+if(localStorage.getItem("licenciaCreada") === "si"){
+    window.location.href = "inicio2.html";
+}
+</script>
+
+</body>
+</html>
